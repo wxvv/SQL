@@ -1,0 +1,73 @@
+I wasn't really paying attention to the class because of all the Halloween chat with someone... Anyway.
+
+WHERE: A logical operation | if x=y | T F 
+HAVING: A mathematical operation | subset of data | count(~)>2
+
+WHERE has to show up before HAVING: casue WHERE might be null; null, then it is not a mathematical operation; 
+get rid of null value first
+
+SELECT Department, Buyer, COUNT(SKU) AS Dept_Buyer_SKU_Count
+FROM SKU_DATA
+GROUP BY Department, Buyer;
+
+SELECT Department, COUNT(SKU) AS NumberOfCatalogItems
+FROM catalog_sku_2016
+WHERE CatalogPage IS NOT NULL
+GROUP BY Department
+HAVING COUNT(SKU) > 2;
+
+JOIN!!  Many ways ; main query, subquery
+WHERE SKU = 100100 OR SKU = 100200 OR   (WHERE SKU IN (XXX,XXXX) )
+ON , WORK WITH JOIN, LOGICAL AS WELL
+
+SELECT SUM(ExtendedPrice) AS WaterSportsReveneue
+FROM ORDER_ITEM
+WHERE SKU IN (100100, 100200, 101100, 101200);
+
+SELECT SKU, SKU_Description, Department
+FROM CATALOG_SKU_2016
+UNION
+SELECT SKU, SKU_Description, Department
+FROM CATALOG_SKU_2017;
+
+(nested query)
+SELECT SUM(ExtendedPrice) AS WaterSportsReveneue
+FROM ORDER_ITEM
+WHERE SKU IN
+	(SELECT SKU
+    FROM SKU_DATA
+    WHERE Department = 'Water Sports');  
+
+
+SELECT RETAIL_ORDER.OrderNumber, StoreNumber,OrderYear, ORDER_ITEM.SKU, SKU_Description, Department
+FROM RETAIL_ORDER JOIN ORDER_ITEM
+	ON RETAIL_ORDER.OrderNumber = ORDER_ITEM.OrderNumber
+    JOIN SKU_DATA
+    ON ORDER_ITEM.SKU = SKU_DATA.SKU
+WHERE OrderYear = '2017'
+ORDER BY RETAIL_ORDER.OrderNumber, ORDER_ITEM.SKU;
+
+
+SELECT SUM(ExtendedPrice) AS WaterSportsReveneue
+FROM ORDER_ITEM
+WHERE SKU IN
+	(SELECT SKU
+    FROM SKU_DATA
+    WHERE Department = 'Water Sports');  like the same!!!
+
+
+Cross join: combine xx together
+Implicit /   Explicit join:INNER JOIN & OUTER JOIN
+
+SELECT RETAIL_ORDER.OrderNumber, StoreNumber,OrderYear, ORDER_ITEM.SKU, SKU_Description, Department
+FROM RETAIL_ORDER JOIN ORDER_ITEM
+	ON RETAIL_ORDER.OrderNumber = ORDER_ITEM.OrderNumber
+    JOIN SKU_DATA
+    ON ORDER_ITEM.SKU = SKU_DATA.SKU
+WHERE OrderYear = '2017'
+ORDER BY RETAIL_ORDER.OrderNumber, ORDER_ITEM.SKU;
+
+Union: select distinct from *   ; SELECT xxx WHERE xxx OR xxx
+Intersection: AND (logical operation)
+Complement: S1 AND NOT S2
+UNION ALL: WITH REPITITION

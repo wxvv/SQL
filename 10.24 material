@@ -61,6 +61,8 @@ WHERE ExtendedPrice > 100
 AND ExtendedPrice < 200
 ORDER BY ExtendedPrice;   (this one might be better)
 
+BETWEEN operator is inclusive: begin and end values are included
+
 Wildcard: not in sports… buyer's name : just care about the first few letters Ara%... OR Ara__
 Buyer LIKE 'Pete%';
 

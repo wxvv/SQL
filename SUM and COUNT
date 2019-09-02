@@ -1,0 +1,11 @@
+// Select the result that would be obtained from the following code:
+ SELECT region, SUM(area)
+ FROM bbc 
+ WHERE SUM(area) > 15000000 
+ GROUP BY region
+ 
+ ANS: No result due to invalid use of the WHERE function
+ 
+ 
+// Select the statement that shows the medium population density of each region:
+ANS: SELECT region, SUM(population)/SUM(area) AS density FROM bbc GROUP BY region
